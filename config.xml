@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>adv_customers</name>
+	<displayName><![CDATA[Customers]]></displayName>
+	<version><![CDATA[1.0.0]]></version>
+	<description><![CDATA[This module allow select if the customer is or not a enterprise]]></description>
+	<author><![CDATA[David Arroyo <arroyoescobardavid@gmail.com>]]></author>
+	<tab><![CDATA[administration]]></tab>
+    <is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+</module>

@@ -25,3 +25,31 @@
  * Don't forget to prefix your containers with your own identifier
  * to avoid any conflicts with others containers.
  */
+
+(function () {
+    var typeClient = $('input[name="type_client"]');
+    showCif();
+    if (typeClient != undefined) {
+        typeClient.click(function () {
+            showCif();
+        })
+    }
+}());
+
+function showCif() {
+    var field = $('input[name="type_client"]:checked');
+    toogleVisibility($('input[name="cif"]'), field != undefined && field.val() == 'enterprise')
+}
+
+function toogleVisibility(element, show) {
+    var parent = element.parent().parent();
+    var active = false;
+    if(show){
+        parent.show();
+        active = true;
+    }else{
+        parent.hide();
+    }
+    element.prop('disabled', !active);
+    element.prop('required', active);
+}

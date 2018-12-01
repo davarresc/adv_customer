@@ -1,0 +1,27 @@
+[/{shop_url}] 
+
+Hola {firstname} {lastname},
+
+Gracias por crear una cuenta de cliente en {shop_name}. 
+
+Estos son sus datos de acceso:
+
+DIRECCIÓN DE CORREO ELECTRÓNICO: {email}
+
+CONTRASEÑA: **********
+
+
+VALIDACIÓN DE SU CUENTA:
+
+1. Seguidamente le validamos su contraseña, en breve recibirá un correo con la notificación de alta en la web
+
+2. Use los datos de acceso indicados para acceder.
+
+3. Si olvida su contraseña siempre puede usar "recuperar contraseña" dentro del área de registro/acceso
+
+
+Cuando reciba su email de validación podrá realizar pedidos en nuestra Web: {shop_name}
+[/{shop_url}] 
+
+{shop_name} [/{shop_url}]
+

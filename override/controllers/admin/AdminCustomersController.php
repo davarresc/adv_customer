@@ -30,6 +30,8 @@
 class AdminCustomersController extends AdminCustomersControllerCore
 {
 
+    public $active_old_value = false;
+
     public function printIsActiveIcon($value, $customer)
     {
         return '<a class="list-action-enable ' . ($value ? 'action-enabled' : 'action-disabled') . '" href="index.php?' . htmlspecialchars('tab=AdminCustomers&id_customer='
@@ -47,10 +49,16 @@ class AdminCustomersController extends AdminCustomersControllerCore
         if (!Validate::isLoadedObject($customer)) {
             $this->errors[] = $this->trans('An error occurred while updating customer information.', array(), 'Admin.Orderscustomers.Notification');
         }
+
+        $this->active_old_value = $customer->is_active;
         $customer->is_active = $customer->is_active ? 0 : 1;
+
         if (!$customer->update()) {
             $this->errors[] = $this->trans('An error occurred while updating customer information.', array(), 'Admin.Orderscustomers.Notification');
         }
+
+        $this->sendActiveClient($customer);
+
         Tools::redirectAdmin(self::$currentIndex . '&token=' . $this->token);
     }
 
@@ -501,5 +509,65 @@ class AdminCustomersController extends AdminCustomersControllerCore
                 $this->action = 'select_delete';
             }
         }
+    }
+
+    private function sendActiveClient(Customer $customer)
+    {
+        $require_validation = (
+            ($customer->type_client === 'customer' && Configuration::get('ADV_CUSTOMERS_CUSTOMER_REQUIRE_APPROVED', null, null, null, false)) ||
+            ($customer->type_client === 'enterprise' && Configuration::get('ADV_CUSTOMERS_ENTERPRISE_REQUIRE_APPROVED', null, null, null, false))
+        );
+
+
+        if ($require_validation && $customer->is_active && !$this->active_old_value) {
+            Mail::Send(
+                $this->context->language->id,
+                'account_approved',
+                $this->translator->trans(
+                    'Your account has been approved!',
+                    array(),
+                    'Emails.Subject'
+                ),
+                array(
+                    '{firstname}' => $customer->firstname,
+                    '{lastname}' => $customer->lastname,
+                    '{email}' => $customer->email,
+                ),
+                $customer->email,
+                $customer->firstname . ' ' . $customer->lastname,
+                null,
+                null,
+                null,
+                null,
+                _PS_MODULE_DIR_ . 'adv_customers/mails/'
+            );
+        }
+    }
+
+    public function processUpdate()
+    {
+        if (Validate::isLoadedObject($this->object)) {
+            $customer_email = strval(Tools::getValue('email'));
+
+            $customer = new Customer();
+            if (Validate::isEmail($customer_email)) {
+                $customer->getByEmail($customer_email);
+                if ($customer)
+                    $this->active_old_value = $customer->is_active;
+            }
+        }
+
+
+        return parent::processUpdate();
+    }
+
+    /**
+     * @param ObjectModel $object
+     * @return bool
+     */
+    protected function afterUpdate($object)
+    {
+        $this->sendActiveClient($object);
+        return true;
     }
 }

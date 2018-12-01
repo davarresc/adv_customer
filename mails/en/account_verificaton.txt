@@ -1,0 +1,27 @@
+[{shop_url}]
+
+Hi {firstname} {lastname},
+
+Thank you for creating a customer account at {shop_name}. 
+
+Here are your login details:
+
+E-MAIL ADDRESS: {email}
+
+PASSWORD: *********
+
+
+VALIDATION OF YOUR ACCOUNT:
+
+1. Next we will validate your password, you will receive an email with the notification of registration on the web shortly
+
+2. Use the access data indicated to access.
+
+3. If you forget your password you can always use "recover password" within the registration / access area
+
+When you receive your validation email you can place orders on our website: {shop_name}
+
+[{shop_url}] 
+
+{shop_name} [{shop_url}]
+

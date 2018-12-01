@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Hi {firstname} {lastname},
+
+Your registration in our shop {shop_name} [{shop_url}] has been APPROVED.
+
+User: {usuario}
+Access our shop with your data, if you do not remember the password you can request a new password.
+
+For any questions you can contact us in our contact form.
+
+{shop_name} [{shop_url}]

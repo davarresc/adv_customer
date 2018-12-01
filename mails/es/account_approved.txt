@@ -1,0 +1,12 @@
+[{shop_url}]
+
+Hola {firstname} {lastname},
+
+Su alta en nuestra tienda {shop_name} [{shop_url}] ha sido APROBADA.
+
+Usuario: {usuario}
+Acceda con sus datos a nuestra tienda, si no recuerda la contraseña puede solicitar una nueva desde su acceso.
+
+Para cualquier duda puede consultarnos en nuestro formulario de contacto.
+
+{shop_name} [{shop_url}]
